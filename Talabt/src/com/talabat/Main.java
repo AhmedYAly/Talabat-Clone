@@ -24,8 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Main.databaseConnection();
-        Customer cus = new Customer("7amied", "123456", "0100", "henak");
-        cus.Register(cus);
+        Customer cus = new Customer("wezza", "wasd123", "0100", "henak");
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {

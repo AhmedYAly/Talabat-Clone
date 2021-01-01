@@ -2,8 +2,7 @@ package com.talabat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 
 public class LoginPanel extends JFrame{
@@ -30,11 +29,9 @@ public class LoginPanel extends JFrame{
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(new Rectangle(85, 85, 406, 656));
-        setMaximumSize(new Dimension(321, 571));
         setMinimumSize(new Dimension(321, 571));
+        setTitle("Login");
         setName("mainFrame");
-        setUndecorated(true);
-        setPreferredSize(new Dimension(321, 571));
         setResizable(false);
         setSize(new Dimension(321, 571));
         getContentPane().setLayout(null);
@@ -105,12 +102,18 @@ public class LoginPanel extends JFrame{
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         loginButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/login/login_btn_h.png")));
         String uname = username.getText();
-        String pword = password.getPassword().toString();
+        String pword = new String(password.getPassword());
 
         customer.login(uname, pword);
     }
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("oi cunt");
+        System.out.println("beeb");
+        this.setVisible(false);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterPanel().setVisible(true);
+            }
+        });
     }
 }

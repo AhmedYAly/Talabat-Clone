@@ -13,23 +13,25 @@ public class Customer extends User{
         super(userName, password);
         this.mobileNumber = mobileNumber;
         this.address = address;
-    }
 
-    public void Register(Customer customer) throws SQLException {
         String query = "insert into customer (CUSTOMER_USERNAME, CUSTOMER_PASSWORD, MOBILE_NUMBER, ADDRESS) values(?,?,?,?)";
-        PreparedStatement insert = Main.conn.prepareStatement(query);
-        insert.setString(1, customer.getUserName());
-        insert.setString(2, customer.getPassword());
-        insert.setString(3, customer.mobileNumber);
-        insert.setString(4, customer.address);
-        insert.execute();
+        PreparedStatement insert = null;
+        try {
+            insert = Main.conn.prepareStatement(query);
+            insert.setString(1, userName);
+            insert.setString(2, password);
+            insert.setString(3, mobileNumber);
+            insert.setString(4, address);
+            insert.execute();
 
-        System.out.println("Added to database.");
+            System.out.println("Added to database.");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public boolean login(String username, String password) throws SQLException{
         boolean loggedIn;
-        int isFound = 0; //default value
 
         String query = "select CUSTOMER_PASSWORD from customer where CUSTOMER_USERNAME = ?";
         PreparedStatement select = Main.conn.prepareStatement(query);
@@ -37,29 +39,21 @@ public class Customer extends User{
         ResultSet set = select.executeQuery();
 
         if(!set.next()){
-            isFound = 2; // username not found
+            loggedIn = false; // username not found
             System.out.println("Username not found!");
         } else{
-            isFound = 1; // prompt to continue
+            loggedIn = true; // prompt to continue
             System.out.println("Username found.");
         }
 
-        if(isFound == 1){
-            while(set.next()){
-                if(password.equals(set.getString("CUSTOMER_PASSWORD"))){
-                    isFound = 1;
-                    System.out.println("User credentials correct.");
-                } else{
-                    isFound = 3; //password incorrect
-                    System.out.println("Logged in");
-                }
+        if(loggedIn){
+            if(password.equals(set.getString("CUSTOMER_PASSWORD"))){
+                loggedIn = true;
+                System.out.println("User credentials correct.");
+            } else{
+                loggedIn = false; //password incorrect
+                System.out.println("Invalid Password");
             }
-        }
-
-        if(isFound == 1){
-            loggedIn = true;
-        } else{
-            loggedIn = false;
         }
 
         return loggedIn;
