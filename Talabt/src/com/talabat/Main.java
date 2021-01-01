@@ -2,6 +2,7 @@ package com.talabat;
 
 import javax.swing.*;
 import java.sql.*;
+import java.awt.*;
 
 public class Main {
     public static Connection conn;
@@ -21,16 +22,15 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        //Main.databaseConnection();
+    public static void main(String[] args) throws SQLException {
+        Main.databaseConnection();
+        Customer cus = new Customer("7amied", "123456", "0100", "henak");
+        cus.Register(cus);
 
-        login panel = new login(new ImageIcon("/assets/images/img.png").getImage());
-
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setSize(448,526);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginPanel(cus).setVisible(true);
+            }
+        });
     }
 }

@@ -15,13 +15,13 @@ public class Customer extends User{
         this.address = address;
     }
 
-    public void Register(String uName, String password, String mobileNumber, String address) throws SQLException {
+    public void Register(Customer customer) throws SQLException {
         String query = "insert into customer (CUSTOMER_USERNAME, CUSTOMER_PASSWORD, MOBILE_NUMBER, ADDRESS) values(?,?,?,?)";
         PreparedStatement insert = Main.conn.prepareStatement(query);
-        insert.setString(1, super.getUserName());
-        insert.setString(2, super.getPassword());
-        insert.setString(3, this.mobileNumber);
-        insert.setString(4, this.address);
+        insert.setString(1, customer.getUserName());
+        insert.setString(2, customer.getPassword());
+        insert.setString(3, customer.mobileNumber);
+        insert.setString(4, customer.address);
         insert.execute();
 
         System.out.println("Added to database.");
@@ -31,7 +31,7 @@ public class Customer extends User{
         boolean loggedIn;
         int isFound = 0; //default value
 
-        String query = "select (CUSTOMER_USERNAME, CUSTOMER_PASSWORD) from customer where CUSTOMER_USERNAME = ?";
+        String query = "select CUSTOMER_PASSWORD from customer where CUSTOMER_USERNAME = ?";
         PreparedStatement select = Main.conn.prepareStatement(query);
         select.setString(1,username);
         ResultSet set = select.executeQuery();
@@ -51,6 +51,7 @@ public class Customer extends User{
                     System.out.println("User credentials correct.");
                 } else{
                     isFound = 3; //password incorrect
+                    System.out.println("Logged in");
                 }
             }
         }

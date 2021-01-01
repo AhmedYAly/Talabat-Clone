@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Talabt:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Talabt_jar</output-path>
+    <root id="archive" name="Talabt.jar">
+      <element id="module-output" name="Talabt" />
+      <element id="extracted-dir" path="D:/libs/OJDBC-Full/ojdbc6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
