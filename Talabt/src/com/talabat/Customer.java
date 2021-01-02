@@ -9,6 +9,10 @@ public class Customer extends User{
     private String address;
     private float totalPrice;
 
+    public Customer(String userName, String password) {
+        super(userName, password);
+    }
+
     public Customer(String userName, String password, String mobileNumber, String address) {
         super(userName, password);
         this.mobileNumber = mobileNumber;

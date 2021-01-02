@@ -12,7 +12,7 @@ public class LoginPanel extends JFrame{
     private JTextField username;
     private JPasswordField password;
     private Customer customer;
-
+    Dimension screenSize;
     
     public LoginPanel(Customer c) {
         this.customer = c;
@@ -20,15 +20,18 @@ public class LoginPanel extends JFrame{
     }
 
     private void initComponents() {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         loginButton = new JButton();
         signupButton = new JButton();
         backGround = new JLabel();
         username = new JTextField();
         password = new JPasswordField();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new Rectangle(85, 85, 406, 656));
+        setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 656));
         setMinimumSize(new Dimension(321, 571));
         setTitle("Login");
         setName("mainFrame");
@@ -79,13 +82,11 @@ public class LoginPanel extends JFrame{
         signupButton.setBounds(103, 480, 116, 31);
 
         username.setText("");
-        username.setHorizontalAlignment(JTextField.CENTER);
         username.setBackground(new Color(242, 242, 242));
         getContentPane().add(username);
         username.setBounds(43, 251, 237, 26);
 
         password.setText("");
-        password.setHorizontalAlignment(JPasswordField.HORIZONTAL);
         password.setBackground(new Color(242, 242, 242));
         getContentPane().add(password);
         password.setBounds(43, 306, 237, 26);

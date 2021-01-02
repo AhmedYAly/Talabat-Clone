@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Main.databaseConnection();
-        Customer cus = new Customer("wezza", "wasd123", "0100", "henak");
+        Customer cus = new Customer("null", "null");
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
