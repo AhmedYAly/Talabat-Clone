@@ -113,7 +113,7 @@ public class LoginPanel extends JFrame{
         this.setVisible(false);
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterPanel().setVisible(true);
+                new RegisterSelection().setVisible(true);
             }
         });
     }

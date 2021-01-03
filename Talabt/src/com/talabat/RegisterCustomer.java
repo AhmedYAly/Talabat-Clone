@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class RegisterPanel extends JFrame {
+public class RegisterCustomer extends JFrame {
     private JLabel backGround;
     private JButton signupButton;
     private JTextField username;
@@ -15,7 +15,7 @@ public class RegisterPanel extends JFrame {
     private JPasswordField password;
     private Dimension screenSize;
 
-    public RegisterPanel() {
+    public RegisterCustomer() {
         initComponents();
     }
 
@@ -63,7 +63,6 @@ public class RegisterPanel extends JFrame {
         getContentPane().add(signupButton);
         signupButton.setBounds(103, 480, 116, 31);
 
-        username.setText("");
         username.setBackground(new Color(242, 242, 242));
         getContentPane().add(username);
         username.setBounds(43, 232, 237, 26);
@@ -99,6 +98,27 @@ public class RegisterPanel extends JFrame {
         String addrs = address.getText();
         String phone = mobileNumber.getText();
 
-        new Customer(uname, pword, addrs, phone);
+        if(validation(uname))
+            new Customer(uname, pword, addrs, phone);
+    }
+
+    private boolean validation(String uname) throws SQLException {
+        boolean valid = false;
+        if(username.getText().isEmpty()){
+            System.out.println("please enter a username");
+        } else {
+            Statement select = Main.conn.createStatement();
+            String query = "select CUSTOMER_USERNAME from CUSTOMER";
+            ResultSet usernameSet = select.executeQuery(query);
+
+            while(usernameSet.next()){
+                if(usernameSet.getString(1).equals(uname)) {
+                    System.out.println("Username already used");
+                    valid = false;
+                    break;
+                } else valid = true;
+            }
+        }
+        return valid;
     }
 }
