@@ -1,9 +1,8 @@
 package com.talabat;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Customer extends User{
     private String mobileNumber;
@@ -81,7 +80,7 @@ public class Customer extends User{
             prd.setDescription(productSet.getString("PRODUCT_DESCRIPTION"));
             prd.setPrice(productSet.getFloat("PRICE"));
 
-            productList.add(prd);
+            productList.add(new Product (prd));
             prd.displayInfo();
         }
 
@@ -93,20 +92,24 @@ public class Customer extends User{
             for(int i = 0; i < productList.size(); i++){
                 if(selection - 1 == i){
                     totalPrice += productList.get(i).getPrice();
+                    System.out.println("vbnm  "+productList.get(i).getName());
                     productSelection.add(productList.get(i));
                     break;
                 }
             }
 
-            System.out.println("would you likr another meal? ");
+            System.out.println("would you like another meal? ");
             String redo = input.next();
 
             if(redo.equals("y"))
                 continue mealSelection;
             else{
+                int min=0,max=100;
+                
+                int rnd=ThreadLocalRandom.current().nextInt(min, max + 1);
                 Order ord = new Order();
                 ord.setProducts(productSelection);
-                ord.setName(this.getUserName() + this.address);
+                ord.setName(this.getUserName() + rnd);
                 ord.setDate();
                 ord.displayInfo();
                 ord.savetoDatabase();
@@ -154,7 +157,7 @@ public class Customer extends User{
                 orderList.add(ord);
             }
         }
-
+            orderList.get(0).displayInfo();
         return orderList;
     }
 }

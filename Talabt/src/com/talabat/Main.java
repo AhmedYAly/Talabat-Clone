@@ -24,25 +24,13 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Main.databaseConnection();
-        Customer cus = new Customer("null", "null");
-
-        Customer c = new Customer("abcd", "123", "010", "henak");
-        c.makeOrder();
-        for (Order order:c.displayOrders()) {
-            order.displayInfo();
-        }
-        new LoginPanel(cus).setVisible(true);
-//
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//
-//            }
-//        });
-
-//        Customer c = new Customer("eivor", "123", "010", "henak");
-//        c.makeOrder();
-//        for (Order order:c.displayOrders()) {
-//            order.displayInfo();
-//        }
+       Customer cus = new Customer("null", "null");
+       Customer c =new Customer("ertyuiop","123","010","hnak");
+       c.makeOrder();
+       for(Order order:c.displayOrders()){
+           order.displayInfo();
+       }
+       
+       new LoginPanel(cus).setVisible(true);
     }
 }

@@ -6,6 +6,18 @@ public class Product {
     private float price;
     private int quantity;
 
+    public Product(Product p) {
+        this.name = p.getName();
+        this.description = p.getDescription();
+        this.price = p.getPrice();
+        this.quantity = p.getQuantity();
+    }
+
+    public Product() {
+        
+    }
+   
+
     public void setName(String name) {
         this.name = name;
     }
