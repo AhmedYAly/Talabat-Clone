@@ -3,11 +3,14 @@ package com.talabat;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Customer extends User{
     private String mobileNumber;
     private String address;
-    private float totalPrice;
+    private float totalPrice = 0;
+    private List<Order> orderList = new ArrayList<Order>();
+
 
     public Customer(String userName, String password) {
         super(userName, password);
@@ -63,9 +66,11 @@ public class Customer extends User{
         return loggedIn;
     }
 
-    public List<Product> displayProducts() throws SQLException {
+    public List<Product> makeOrder() throws SQLException {
         List<Product> productList = new ArrayList<Product>();
+        List<Product> productSelection = new ArrayList<Product>();
         Product prd = new Product();
+        Scanner input = new Scanner(System.in);
 
         String query = "select * from product";
         PreparedStatement select = Main.conn.prepareStatement(query);
@@ -77,13 +82,42 @@ public class Customer extends User{
             prd.setPrice(productSet.getFloat("PRICE"));
 
             productList.add(prd);
+            prd.displayInfo();
         }
 
+        mealSelection:
+        while(true){
+            System.out.println("\nChoose your meal:");
+            int selection = input.nextInt();
+
+            for(int i = 0; i < productList.size(); i++){
+                if(selection - 1 == i){
+                    totalPrice += productList.get(i).getPrice();
+                    productSelection.add(productList.get(i));
+                    break;
+                }
+            }
+
+            System.out.println("would you likr another meal? ");
+            String redo = input.next();
+
+            if(redo.equals("y"))
+                continue mealSelection;
+            else{
+                Order ord = new Order();
+                ord.setProducts(productSelection);
+                ord.setName(this.getUserName() + this.address);
+                ord.setDate();
+                ord.displayInfo();
+                ord.savetoDatabase();
+                orderList.add(ord);
+                break;
+            }
+        }
         return productList;
     }
 
     public List<Order> displayOrders() throws SQLException {
-        List<Order> orderList = new ArrayList<Order>();
         List<Product> productList = new ArrayList<Product>();
         Order ord = new Order();
         Product prd = new Product();
@@ -95,7 +129,7 @@ public class Customer extends User{
         while(orderSet.next()){
             ord.setName(orderSet.getString("ORDER_NAME"));
             ord.setDate(orderSet.getDate("ORDER_DATE"));
-            ord.setNotes(orderSet.getString("NOTES)"));
+            ord.setNotes(orderSet.getString("NOTES"));
             ord.setRst_name(orderSet.getString("RST_NAME"));
 
             query = "select * from orders where order_name = ?";
@@ -107,7 +141,7 @@ public class Customer extends User{
                 prd.setName(productSet.getString("MEAL_NAME"));
                 prd.setQuantity(productSet.getInt("QUANTITY"));
 
-                query = "select PRICE form product where PRODUCT_NAME = ?";
+                query = "select PRICE from product where PRODUCT_NAME = ?";
                 select = Main.conn.prepareStatement(query);
                 select.setString(1, prd.getName());
                 ResultSet priceSet = select.executeQuery();
@@ -117,8 +151,8 @@ public class Customer extends User{
                     productList.add(prd);
                 }
                 ord.setProducts(productList);
+                orderList.add(ord);
             }
-            orderList.add(ord);
         }
 
         return orderList;

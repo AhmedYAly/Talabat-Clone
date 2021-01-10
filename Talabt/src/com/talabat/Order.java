@@ -6,8 +6,8 @@ import java.util.*;
 public class Order {
     private String name;
     private java.sql.Date Date;
-    private String rst_name;
-    private String notes;
+    private String rst_name = "7amada";
+    private String notes = "mafie4 lift";
     private List<Product> products = new ArrayList<Product>();
 
     public void addProduct(Product prdct){
@@ -18,13 +18,13 @@ public class Order {
         this.Date = java.sql.Date.valueOf(java.time.LocalDate.now());
     }
 
-    private void savetoDatabase(Order ord) throws SQLException{
-        String query = "insert into orders_inf (ORDER_NAME, ORDER_DATE, NOTES, RST_NAME) value(?,?,?,?)";
+    public void savetoDatabase() throws SQLException{
+        String query = "insert into orders_inf (ORDER_NAME, ORDER_DATE, NOTES, RST_NAME) values(?,?,?,?)";
         PreparedStatement insert = Main.conn.prepareStatement(query);
-        insert.setString(1, this.name);
-        insert.setDate(2, this.Date);
-        insert.setString(3, this.notes);
-        insert.setString(4, this.rst_name);
+        insert.setString(1, name);
+        insert.setDate(2, Date);
+        insert.setString(3, notes);
+        insert.setString(4, rst_name);
         insert.execute();
 
         for (Product prd:products) {
@@ -61,5 +61,17 @@ public class Order {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public void displayInfo(){
+        System.out.println(name);
+        System.out.println(rst_name);
+        System.out.println(notes);
+        System.out.println(Date);
+        for(int i = 0; i < products.size(); i++){
+            System.out.println(products.get(i).getName());
+            System.out.println(products.get(i).getQuantity());
+            System.out.println("-----");
+        }
     }
 }
