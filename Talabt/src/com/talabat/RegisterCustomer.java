@@ -9,6 +9,7 @@ import java.sql.*;
 public class RegisterCustomer extends JFrame {
     private JLabel backGround;
     private JButton signupButton;
+    private JButton backButton;
     private JTextField username;
     private JTextField address;
     private JTextField mobileNumber;
@@ -23,6 +24,7 @@ public class RegisterCustomer extends JFrame {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         signupButton = new JButton();
+        backButton = new JButton();
         backGround = new JLabel();
         username = new JTextField();
         password = new JPasswordField();
@@ -34,8 +36,7 @@ public class RegisterCustomer extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 656));
         setMinimumSize(new Dimension(321, 571));
-        setTitle("Customer  ");
-        setName("mainFrame");
+        setTitle("Customer");
         setResizable(false);
         setSize(new Dimension(321, 571));
         getContentPane().setLayout(null);
@@ -62,6 +63,23 @@ public class RegisterCustomer extends JFrame {
         });
         getContentPane().add(signupButton);
         signupButton.setBounds(103, 480, 116, 31);
+
+        backButton.setBackground(new Color(255, 90, 0));
+        backButton.setForeground(new Color(255, 255, 255));
+        backButton.setIcon(new ImageIcon(getClass().getResource("assets/images/common/back_btn.png")));
+        backButton.setBorderPainted(false);
+        backButton.setMargin(new Insets(0, 0, 0, 0));
+        backButton.setMaximumSize(new Dimension(116, 31));
+        backButton.setMinimumSize(new Dimension(116, 31));
+        backButton.setPreferredSize(new Dimension(116, 31));
+
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton);
+        backButton.setBounds(3, 5, 43, 24);
 
         username.setBackground(new Color(242, 242, 242));
         getContentPane().add(username);
@@ -100,6 +118,15 @@ public class RegisterCustomer extends JFrame {
 
         if(validation(uname))
             new Customer(uname, pword, addrs, phone);
+    }
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
+        this.setVisible(false);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterSelection().setVisible(true);
+            }
+        });
     }
 
     private boolean validation(String uname) throws SQLException {

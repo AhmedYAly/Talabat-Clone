@@ -19,6 +19,10 @@ public class LoginPanel extends JFrame{
         initComponents();
     }
 
+    public LoginPanel(){
+        initComponents();
+    }
+
     private void initComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -31,12 +35,11 @@ public class LoginPanel extends JFrame{
         double height = screenSize.getHeight();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 656));
-        setMinimumSize(new Dimension(321, 571));
+        setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 686));
+        setMinimumSize(new Dimension(321, 601));
         setTitle("Login");
-        setName("mainFrame");
         setResizable(false);
-        setSize(new Dimension(321, 571));
+        setSize(new Dimension(321, 601));
         getContentPane().setLayout(null);
 
         loginButton.setBackground(new Color(255, 90, 0));
@@ -60,7 +63,7 @@ public class LoginPanel extends JFrame{
             }
         });
         getContentPane().add(loginButton);
-        loginButton.setBounds(103, 428, 116, 31);
+        loginButton.setBounds(100, 463, 122, 31);
 
         signupButton.setBackground(new Color(255, 90, 0));
         signupButton.setFont(new Font("Microsoft Sans Serif", 1, 14));
@@ -79,17 +82,19 @@ public class LoginPanel extends JFrame{
             }
         });
         getContentPane().add(signupButton);
-        signupButton.setBounds(103, 480, 116, 31);
+        signupButton.setBounds(100, 511, 122, 31);
 
         username.setText("");
-        username.setBackground(new Color(242, 242, 242));
+        username.setBackground(new Color(255, 255, 255));
+        username.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         getContentPane().add(username);
-        username.setBounds(43, 251, 237, 26);
+        username.setBounds(34, 290, 254, 26);
 
         password.setText("");
-        password.setBackground(new Color(242, 242, 242));
+        password.setBackground(new Color(255, 255, 255));
+        password.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         getContentPane().add(password);
-        password.setBounds(43, 306, 237, 26);
+        password.setBounds(34, 348, 254, 26);
 
         backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/login/background.png")));
         backGround.setText("backGround");

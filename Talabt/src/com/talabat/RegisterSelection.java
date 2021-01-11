@@ -8,6 +8,7 @@ public class RegisterSelection extends JFrame {
     private JButton customerButton;
     private JLabel backGround;
     private JButton restaurantButton;
+    private JButton backButton;
     Dimension screenSize;
 
     public RegisterSelection() {
@@ -19,24 +20,22 @@ public class RegisterSelection extends JFrame {
 
         customerButton = new JButton();
         restaurantButton = new JButton();
+        backButton = new JButton();
         backGround = new JLabel();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 656));
-        setMinimumSize(new Dimension(321, 571));
-        setTitle("Login");
-        setName("mainFrame");
+        setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 686));
+        setMinimumSize(new Dimension(321, 601));
+        setTitle("Register");
         setResizable(false);
-        setSize(new Dimension(321, 571));
+        setSize(new Dimension(321, 601));
         getContentPane().setLayout(null);
 
         customerButton.setBackground(new Color(255, 90, 0));
-        customerButton.setFont(new Font("Microsoft Sans Serif", 1, 14));
         customerButton.setForeground(new Color(255, 255, 255));
         customerButton.setIcon(new ImageIcon(getClass().getResource("assets/images/signup/customer.png")));
-        customerButton.setToolTipText("");
         customerButton.setBorderPainted(false);
         customerButton.setMargin(new Insets(0, 0, 0, 0));
         customerButton.setMaximumSize(new Dimension(116, 31));
@@ -49,13 +48,11 @@ public class RegisterSelection extends JFrame {
             }
         });
         getContentPane().add(customerButton);
-        customerButton.setBounds(49, 287, 224, 31);
+        customerButton.setBounds(59, 317, 203, 31);
 
         restaurantButton.setBackground(new Color(255, 90, 0));
-        restaurantButton.setFont(new Font("Microsoft Sans Serif", 1, 14));
         restaurantButton.setForeground(new Color(255, 255, 255));
         restaurantButton.setIcon(new ImageIcon(getClass().getResource("assets/images/signup/restaurant.png")));
-        restaurantButton.setToolTipText("");
         restaurantButton.setBorderPainted(false);
         restaurantButton.setMargin(new Insets(0, 0, 0, 0));
         restaurantButton.setMaximumSize(new Dimension(116, 31));
@@ -69,7 +66,24 @@ public class RegisterSelection extends JFrame {
             }
         });
         getContentPane().add(restaurantButton);
-        restaurantButton.setBounds(49, 338, 224, 31);
+        restaurantButton.setBounds(59, 375, 203, 31);
+
+        backButton.setBackground(new Color(255, 90, 0));
+        backButton.setForeground(new Color(255, 255, 255));
+        backButton.setIcon(new ImageIcon(getClass().getResource("assets/images/common/back_btn.png")));
+        backButton.setBorderPainted(false);
+        backButton.setMargin(new Insets(0, 0, 0, 0));
+        backButton.setMaximumSize(new Dimension(116, 31));
+        backButton.setMinimumSize(new Dimension(116, 31));
+        backButton.setPreferredSize(new Dimension(116, 31));
+
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton);
+        backButton.setBounds(3, 5, 43, 24);
 
         backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/login/background.png")));
         backGround.setText("backGround");
@@ -78,6 +92,15 @@ public class RegisterSelection extends JFrame {
         backGround.getAccessibleContext().setAccessibleName("background");
 
         pack();
+    }
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
+        this.setVisible(false);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginPanel().setVisible(true);
+            }
+        });
     }
 
     private void customerButtonActionPerformed(java.awt.event.ActionEvent evt){
