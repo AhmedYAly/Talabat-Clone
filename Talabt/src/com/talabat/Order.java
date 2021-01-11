@@ -1,6 +1,7 @@
 package com.talabat;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class Order {
@@ -8,7 +9,31 @@ public class Order {
     private java.sql.Date Date;
     private String rst_name = "7amada";
     private String notes = "mafie4 lift";
+    private float totalPrice = 0;
     private List<Product> products = new ArrayList<Product>();
+
+    public Order() {
+    }
+
+    public Order(Order order) {
+        this.name = order.name;
+        Date = order.Date;
+        this.rst_name = order.rst_name;
+        this.notes = order.notes;
+        this.products = order.products;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
 
     public void addProduct(Product prdct){
         products.add(prdct);
@@ -69,9 +94,10 @@ public class Order {
         System.out.println(notes);
         System.out.println(Date);
         for(int i = 0; i < products.size(); i++){
+            System.out.println("---");
             System.out.println(products.get(i).getName());
             System.out.println(products.get(i).getQuantity());
-            System.out.println("-----");
         }
+        System.out.println("--------");
     }
 }

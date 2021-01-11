@@ -7,7 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Customer extends User{
     private String mobileNumber;
     private String address;
-    private float totalPrice = 0;
     private List<Order> orderList = new ArrayList<Order>();
 
 
@@ -69,7 +68,9 @@ public class Customer extends User{
         List<Product> productList = new ArrayList<Product>();
         List<Product> productSelection = new ArrayList<Product>();
         Product prd = new Product();
+        Order ord = new Order();
         Scanner input = new Scanner(System.in);
+        float totalPrice = 0;
 
         String query = "select * from product";
         PreparedStatement select = Main.conn.prepareStatement(query);
@@ -92,7 +93,6 @@ public class Customer extends User{
             for(int i = 0; i < productList.size(); i++){
                 if(selection - 1 == i){
                     totalPrice += productList.get(i).getPrice();
-                    System.out.println("vbnm  "+productList.get(i).getName());
                     productSelection.add(productList.get(i));
                     break;
                 }
@@ -104,16 +104,14 @@ public class Customer extends User{
             if(redo.equals("y"))
                 continue mealSelection;
             else{
-                int min=0,max=100;
-                
+                int min=0,max=999;
                 int rnd=ThreadLocalRandom.current().nextInt(min, max + 1);
-                Order ord = new Order();
+
                 ord.setProducts(productSelection);
-                ord.setName(this.getUserName() + rnd);
+                ord.setName(this.getUserName() + "-æ-" + rnd);
                 ord.setDate();
-                ord.displayInfo();
+                ord.setTotalPrice(totalPrice);
                 ord.savetoDatabase();
-                orderList.add(ord);
                 break;
             }
         }
@@ -124,6 +122,7 @@ public class Customer extends User{
         List<Product> productList = new ArrayList<Product>();
         Order ord = new Order();
         Product prd = new Product();
+        String uName;
 
         String query = "select * from orders_inf";
         PreparedStatement select = Main.conn.prepareStatement(query);
@@ -131,33 +130,30 @@ public class Customer extends User{
 
         while(orderSet.next()){
             ord.setName(orderSet.getString("ORDER_NAME"));
-            ord.setDate(orderSet.getDate("ORDER_DATE"));
-            ord.setNotes(orderSet.getString("NOTES"));
-            ord.setRst_name(orderSet.getString("RST_NAME"));
+            String[] splitter = ord.getName().split("-æ-");
+            uName = splitter[0];
 
-            query = "select * from orders where order_name = ?";
-            select = Main.conn.prepareStatement(query);
-            select.setString(1 ,ord.getName());
-            ResultSet productSet = select.executeQuery();
+            if(uName.equals(super.getUserName())) {
+                ord.setDate(orderSet.getDate("ORDER_DATE"));
+                ord.setNotes(orderSet.getString("NOTES"));
+                ord.setRst_name(orderSet.getString("RST_NAME"));
 
-            while(productSet.next()){
-                prd.setName(productSet.getString("MEAL_NAME"));
-                prd.setQuantity(productSet.getInt("QUANTITY"));
-
-                query = "select PRICE from product where PRODUCT_NAME = ?";
+                query = "select * from orders where order_name = ?";
                 select = Main.conn.prepareStatement(query);
-                select.setString(1, prd.getName());
-                ResultSet priceSet = select.executeQuery();
+                select.setString(1 ,ord.getName());
+                ResultSet productSet = select.executeQuery();
 
-                while(priceSet.next()){
-                    prd.setPrice(priceSet.getFloat("PRICE"));
-                    productList.add(prd);
+                productList.clear();
+                while(productSet.next()){
+                    prd.setName(productSet.getString("MEAL_NAME"));
+                    prd.setQuantity(productSet.getInt("QUANTITY"));
+                    productList.add(new Product(prd));
                 }
-                ord.setProducts(productList);
-                orderList.add(ord);
+                ord.setProducts(new ArrayList<Product>(productList));
+
+                orderList.add(new Order(ord));
             }
         }
-            orderList.get(0).displayInfo();
         return orderList;
     }
 }
