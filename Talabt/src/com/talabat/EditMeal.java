@@ -1,5 +1,6 @@
 package com.talabat;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -8,9 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
-public class AddMeal extends JFrame {
+public class EditMeal extends JFrame {
     private JLabel backGround;
     private JButton addButton;
     private JButton browseButton;
@@ -18,16 +18,19 @@ public class AddMeal extends JFrame {
     private JTextField mealName;
     private JTextField price;
     private JTextArea description;
-    private ImagePanel img;
+    private AddMeal.ImagePanel img;
     private Dimension screenSize;
+    private JComboBox comboBox;
     private String slectedImagepath;
 
-    public AddMeal() {
+    public EditMeal() {
         initComponents();
     }
 
     private void initComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        getContentPane().setBackground(new Color(255,255,255));
 
         addButton = new JButton();
         browseButton = new JButton();
@@ -36,6 +39,7 @@ public class AddMeal extends JFrame {
         price = new JTextField();
         description = new JTextArea();
         backGround = new JLabel();
+        comboBox = new JComboBox();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
 
@@ -49,7 +53,7 @@ public class AddMeal extends JFrame {
 
         addButton.setBackground(new Color(255, 90, 0));
         addButton.setForeground(new Color(255, 255, 255));
-        addButton.setIcon(new ImageIcon(getClass().getResource("assets/images/addmeal/addmeal_btn.png")));
+        addButton.setIcon(new ImageIcon(getClass().getResource("assets/images/edtmeal/edtmeal_btn.png")));
         addButton.setBorderPainted(false);
         addButton.setMargin(new Insets(0, 0, 0, 0));
 
@@ -70,7 +74,7 @@ public class AddMeal extends JFrame {
         browseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 browseButtonActionPerformed(evt);
-                img = new ImagePanel(slectedImagepath);
+                img = new AddMeal.ImagePanel(slectedImagepath);
                 add(img);
 
                 img.setBounds(34, 342, 254, 155);
@@ -96,19 +100,21 @@ public class AddMeal extends JFrame {
         getContentPane().add(backButton);
         backButton.setBounds(3, 5, 43, 24);
 
-        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/addmeal/background.png")));
+        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/edtmeal/background.png")));
         getContentPane().add(backGround);
         backGround.setBounds(0, 0, 359, 571);
 
         mealName.setText("");
         mealName.setBackground(new Color(235, 235, 235));
         mealName.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        mealName.setFont(new java.awt.Font("Myraid Pro", 0, 18));
         getContentPane().add(mealName);
         mealName.setBounds(34, 81, 254, 31);
 
         price.setText("");
         price.setBackground(new Color(235,235,235));
         price.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        price.setFont(new java.awt.Font("Myraid Pro", 0, 18));
         getContentPane().add(price);
         price.setBounds(34,142,64,31);
 
@@ -117,6 +123,12 @@ public class AddMeal extends JFrame {
         description.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         getContentPane().add(description);
         description.setBounds(110,142,178,155);
+
+        comboBox.setBounds(140,15,148,32);
+        comboBox.setFont(new java.awt.Font("Myraid Pro", 0, 18));
+        getContentPane().add(comboBox);
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"None"}));
+
 
         pack();
     }
@@ -139,7 +151,7 @@ public class AddMeal extends JFrame {
         }
     }
 
-    public static class ImagePanel extends JPanel{
+    public class ImagePanel extends JPanel{
 
         private BufferedImage image;
         private String path;

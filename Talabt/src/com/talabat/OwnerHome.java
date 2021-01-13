@@ -120,13 +120,15 @@ public class OwnerHome extends JFrame{
     }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("aa");
         editButton.setIcon(new ImageIcon(getClass().getResource("assets/images/rstown/editmeal_btn_h.png")));
+        this.setVisible(false);
+        new EditMeal().setVisible(true);
     }
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("aaa");
         removeButton.setIcon(new ImageIcon(getClass().getResource("assets/images/rstown/rmvmeal_btn_h.png")));
+        this.setVisible(false);
+        new RemoveMeal().setVisible(true);
     }
 
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
