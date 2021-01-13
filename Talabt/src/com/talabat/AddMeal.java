@@ -129,12 +129,23 @@ public class AddMeal extends JFrame {
             }
         }
 
-        ImageIcon img = new ImageIcon(path);
+        public BufferedImage resize(BufferedImage img, int newW, int newH) {
+            Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+            BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 
+            Graphics2D g2d = dimg.createGraphics();
+            g2d.drawImage(tmp, 0, 0, null);
+            g2d.dispose();
+
+            return dimg;
+        }
+
+        ImageIcon img = new ImageIcon(path);
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters
+            g.drawImage(this.resize(image, 254, 155), 0, 0, this); // see javadoc for more info on the parameters
         }
+
     }
 }
