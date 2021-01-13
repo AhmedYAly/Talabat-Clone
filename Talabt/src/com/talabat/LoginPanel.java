@@ -9,6 +9,7 @@ public class LoginPanel extends JFrame{
     private JButton loginButton;
     private JLabel backGround;
     private JButton signupButton;
+    private JButton backButton;
     private JTextField username;
     private JPasswordField password;
     private Customer customer;
@@ -28,6 +29,7 @@ public class LoginPanel extends JFrame{
 
         loginButton = new JButton();
         signupButton = new JButton();
+        backButton = new JButton();
         backGround = new JLabel();
         username = new JTextField();
         password = new JPasswordField();
@@ -36,10 +38,10 @@ public class LoginPanel extends JFrame{
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 686));
-        setMinimumSize(new Dimension(321, 601));
+        setMinimumSize(new Dimension(336, 601));
         setTitle("Login");
         setResizable(false);
-        setSize(new Dimension(321, 601));
+        setSize(new Dimension(336, 601));
         getContentPane().setLayout(null);
 
         loginButton.setBackground(new Color(255, 90, 0));
@@ -84,6 +86,23 @@ public class LoginPanel extends JFrame{
         getContentPane().add(signupButton);
         signupButton.setBounds(100, 511, 122, 31);
 
+        backButton.setBackground(new Color(255, 90, 0));
+        backButton.setForeground(new Color(255, 255, 255));
+        backButton.setIcon(new ImageIcon(getClass().getResource("assets/images/common/back_btn.png")));
+        backButton.setBorderPainted(false);
+        backButton.setMargin(new Insets(0, 0, 0, 0));
+        backButton.setMaximumSize(new Dimension(116, 31));
+        backButton.setMinimumSize(new Dimension(116, 31));
+        backButton.setPreferredSize(new Dimension(116, 31));
+
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton);
+        backButton.setBounds(3, 5, 43, 24);
+
         username.setText("");
         username.setBackground(new Color(255, 255, 255));
         username.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -96,7 +115,7 @@ public class LoginPanel extends JFrame{
         getContentPane().add(password);
         password.setBounds(34, 348, 254, 26);
 
-        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/login/background.png")));
+        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/common/background.png")));
         backGround.setText("backGround");
         getContentPane().add(backGround);
         backGround.setBounds(0, 0, 359, 571);
@@ -113,12 +132,17 @@ public class LoginPanel extends JFrame{
         customer.login(uname, pword);
     }
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
+        this.setVisible(false);
+        new Selection(customer).setVisible(true);
+    }
+
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("beeb");
         this.setVisible(false);
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterSelection().setVisible(true);
+               new RegisterCustomer(customer).setVisible(true);
             }
         });
     }

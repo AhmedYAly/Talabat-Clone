@@ -15,8 +15,10 @@ public class RegisterCustomer extends JFrame {
     private JTextField mobileNumber;
     private JPasswordField password;
     private Dimension screenSize;
+    private Customer customer;
 
-    public RegisterCustomer() {
+    public RegisterCustomer(Customer c) {
+        customer = c;
         initComponents();
     }
 
@@ -35,10 +37,10 @@ public class RegisterCustomer extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(new Rectangle((int)width * 38 / 100, (int)height / 10, 406, 656));
-        setMinimumSize(new Dimension(321, 571));
+        setMinimumSize(new Dimension(336, 571));
         setTitle("Customer");
         setResizable(false);
-        setSize(new Dimension(321, 571));
+        setSize(new Dimension(336, 571));
         getContentPane().setLayout(null);
 
         signupButton.setBackground(new Color(255, 90, 0));
@@ -122,11 +124,7 @@ public class RegisterCustomer extends JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
         this.setVisible(false);
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterSelection().setVisible(true);
-            }
-        });
+        new LoginPanel(customer).setVisible(true);
     }
 
     private boolean validation(String uname) throws SQLException {

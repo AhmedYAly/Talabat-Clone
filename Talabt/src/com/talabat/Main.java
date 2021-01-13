@@ -1,8 +1,6 @@
 package com.talabat;
 
-import javax.swing.*;
 import java.sql.*;
-import java.awt.*;
 
 public class Main {
     public static Connection conn;
@@ -23,14 +21,15 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-        Main.databaseConnection();
-       Customer cus = new Customer("null", "null");
+       // Main.databaseConnection();
+        Customer cus = new Customer("null", "null");
 //       Customer c =new Customer("liv","123","010","aesjo");
 //       c.makeOrder();
 //       for(Order order:c.displayOrders()){
 //           order.displayInfo();
 //       }
-//
-       new LoginPanel(cus).setVisible(true);
+//        new Selection(cus).setVisible(true);
+
+        new OwnerHome().setVisible(true);
     }
 }
