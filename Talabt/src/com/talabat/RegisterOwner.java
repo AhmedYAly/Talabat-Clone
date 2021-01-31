@@ -11,8 +11,7 @@ public class RegisterOwner extends JFrame{
     private JButton signupButton;
     private JButton backButton;
     private JTextField username;
-    private JTextField address;
-    private JTextField mobileNumber;
+    private JTextField rstName;
     private JPasswordField password;
     private Dimension screenSize;
     private Owner owner;
@@ -30,8 +29,7 @@ public class RegisterOwner extends JFrame{
         backGround = new JLabel();
         username = new JTextField();
         password = new JPasswordField();
-        address = new JTextField();
-        mobileNumber = new JTextField();
+        rstName = new JTextField();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
 
@@ -92,17 +90,12 @@ public class RegisterOwner extends JFrame{
         getContentPane().add(password);
         password.setBounds(43, 287, 237, 26);
 
-        address.setText("");
-        address.setBackground(new Color(242, 242, 242));
-        getContentPane().add(address);
-        address.setBounds(43, 342, 237, 26);
+        rstName.setText("");
+        rstName.setBackground(new Color(242, 242, 242));
+        getContentPane().add(rstName);
+        rstName.setBounds(43, 342, 237, 26);
 
-        mobileNumber.setText("");
-        mobileNumber.setBackground(new Color(242, 242, 242));
-        getContentPane().add(mobileNumber);
-        mobileNumber.setBounds(43, 397, 237, 26);
-
-        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/signup/background.png")));
+        backGround.setIcon(new ImageIcon(getClass().getResource("assets/images/signup/background_owner.png")));
         backGround.setText("backGround");
         getContentPane().add(backGround);
         backGround.setBounds(0, 0, 359, 571);
@@ -112,14 +105,10 @@ public class RegisterOwner extends JFrame{
     }
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        signupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/signup/signup_btn_h.png")));
-        String uname = username.getText();
-        String pword = new String(password.getPassword());
-        String addrs = address.getText();
-        String phone = mobileNumber.getText();
-
-        if(validation(uname))
-            new Customer(uname, pword, addrs, phone);
+//        signupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/signup/signup_btn_h.png")));
+//        String uname = username.getText();
+//        String pword = new String(password.getPassword());
+//        String rstName = this.rstName.getText();
     }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
@@ -133,7 +122,7 @@ public class RegisterOwner extends JFrame{
             System.out.println("please enter a username");
         } else {
             Statement select = Main.conn.createStatement();
-            String query = "select CUSTOMER_USERNAME from CUSTOMER";
+            String query = "select OWNER_USERNAME from CUSTOMER";
             ResultSet usernameSet = select.executeQuery(query);
 
             while(usernameSet.next()){

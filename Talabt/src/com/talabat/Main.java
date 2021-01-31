@@ -30,7 +30,11 @@ public class Main {
 //       }
 //        new Selection(cus).setVisible(true);
 
-        new Selection().setVisible(true);
+        //new Selection().setVisible(true);
+
+        //new OwnerHome().setVisible(true);
+
+        new CusHome().setVisible(true);
 
         //conn.close();
     }

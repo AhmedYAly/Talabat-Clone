@@ -113,6 +113,6 @@ public class CusHome extends JFrame{
     private void menuButtonActionPerformed(java.awt.event.ActionEvent evt) {
         menuButton.setIcon(new ImageIcon(getClass().getResource("assets/images/cus/menu_btn_h.png")));
         this.setVisible(false);
-        new RemoveMeal().setVisible(true);
+        new MenuMealSelection().setVisible(true);
     }
 }
