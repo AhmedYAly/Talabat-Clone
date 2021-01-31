@@ -31,5 +31,7 @@ public class Main {
 //        new Selection(cus).setVisible(true);
 
         new OwnerHome().setVisible(true);
+
+        conn.close();
     }
 }
