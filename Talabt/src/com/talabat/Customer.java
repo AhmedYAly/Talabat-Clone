@@ -9,7 +9,6 @@ public class Customer extends User{
     private String address;
     private List<Order> orderList = new ArrayList<Order>();
 
-
     public Customer(String userName, String password) {
         super(userName, password);
     }
@@ -18,13 +17,15 @@ public class Customer extends User{
         super(userName, password);
         this.mobileNumber = mobileNumber;
         this.address = address;
+    }
 
+    public void register(){
         String query = "insert into customer (CUSTOMER_USERNAME, CUSTOMER_PASSWORD, MOBILE_NUMBER, ADDRESS) values(?,?,?,?)";
         PreparedStatement insert = null;
         try {
             insert = Main.conn.prepareStatement(query);
-            insert.setString(1, userName);
-            insert.setString(2, password);
+            insert.setString(1, super.getUserName());
+            insert.setString(2, super.getPassword());
             insert.setString(3, mobileNumber);
             insert.setString(4, address);
             insert.execute();

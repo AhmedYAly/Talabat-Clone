@@ -12,15 +12,18 @@ public class LoginPanel extends JFrame{
     private JButton backButton;
     private JTextField username;
     private JPasswordField password;
-    private Customer customer;
+    private boolean customer;
+    private Customer cus;
+    private Owner owner;
     Dimension screenSize;
     
     public LoginPanel(Customer c) {
-        this.customer = c;
+        this.cus = c;
         initComponents();
     }
 
-    public LoginPanel(){
+    public LoginPanel(Owner o){
+        this.owner = o;
         initComponents();
     }
 
@@ -129,21 +132,25 @@ public class LoginPanel extends JFrame{
         String uname = username.getText();
         String pword = new String(password.getPassword());
 
-        customer.login(uname, pword);
+        if(customer){
+            cus.login(uname, pword);
+        } else {
+            owner.login(uname, pword);
+        }
     }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt){
         this.setVisible(false);
-        new Selection(customer).setVisible(true);
+        new Selection().setVisible(true);
     }
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("beeb");
         this.setVisible(false);
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               new RegisterCustomer(customer).setVisible(true);
-            }
-        });
+
+        if(customer){
+            new RegisterCustomer(cus).setVisible(true);
+        } else {
+            new RegisterOwner(owner).setVisible(true);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.talabat;
 public class Product {
     private String name;
     private String description;
+    private String photoPath;
     private float price;
     private int quantity;
 
@@ -16,7 +17,10 @@ public class Product {
     public Product() {
         
     }
-   
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
 
     public void setName(String name) {
         this.name = name;

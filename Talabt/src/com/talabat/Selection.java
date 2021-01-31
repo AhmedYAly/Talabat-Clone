@@ -8,11 +8,9 @@ public class Selection extends JFrame {
     private JButton customerButton;
     private JLabel backGround;
     private JButton restaurantButton;
-    Dimension screenSize;
-    private Customer cus;
+    private Dimension screenSize;
 
-    public Selection(Customer c) {
-        cus = c;
+    public Selection() {
         initComponents();
     }
 
@@ -79,18 +77,15 @@ public class Selection extends JFrame {
 
     private void customerButtonActionPerformed(java.awt.event.ActionEvent evt){
         customerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/selection/customer_h.png")));
+        Customer cus = new Customer("null", "null");
         this.setVisible(false);
-        new LoginPanel(this.cus).setVisible(true);
+        new LoginPanel(cus).setVisible(true);
     }
 
     private void restaurantButtonActionPerformed(java.awt.event.ActionEvent evt) {
         restaurantButton.setIcon(new ImageIcon(getClass().getResource("assets/images/selection/restaurant_h.png")));
-//        this.setVisible(false);
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new RegisterPanel().setVisible(true);
-//            }
-//        });
-        System.out.println("boob");
+        Owner owner = new Owner();
+        this.setVisible(false);
+        new LoginPanel(owner).setVisible(true);
     }
 }
